@@ -1,0 +1,5 @@
+erick_workout:
+    resource: "@ErickWorkoutBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
