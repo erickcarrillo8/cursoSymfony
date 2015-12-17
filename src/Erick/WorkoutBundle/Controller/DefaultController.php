@@ -6,19 +6,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Erick\WorkoutBundle\Entity\Workout;
+
+   /**
+     *@Route("/workout") 
+   */
 
 class DefaultController extends Controller
-{
+{   
     /**
-     * @Route("/hello/")
-     * @Template("ErickWorkoutBundle:Default:index.html.twig")
+     * @Route("/" , name ="workout_index")
+     * @Template("")
      */
     public function indexAction()
     {
-        
-        $response  =  new Response(json_encode(array('result' => 1, 'message' => 'ok' )));
-        $response->headers->set('Content-type', 'application/json');
-        return $response;
+       $workout = new Workout();
+       $workout->setActivity('yoga');
+       $workout->setHours(1);
+       $workout->setOcurrenceDate(new \DateTime());
+
+       $em = $this->getDoctrine()->getEntityManager();
+       $em->persist($workout);
+       $em->flush(); 
+
+
+
+       return array();
+       
     }
 
 }
